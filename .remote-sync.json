@@ -1,0 +1,12 @@
+{
+  "transport": "sftp",
+  "hostname": "hs.myground.org",
+  "port": 22,
+  "uploadOnSave": true,
+  "username": "root",
+  "password": "1uzRPgXqvD4a",
+  "target": "/_hschool",
+  "ignore": [
+    ".git/**"
+  ]
+}
