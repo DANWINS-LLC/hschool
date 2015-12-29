@@ -8,13 +8,18 @@
 
 <body layout="row" ng-controller="AppCtrl">
   <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ngCloak>
-    <md-toolbar class="md-tall md-hue-2">
-      <span flex></span>
+    <header class="nav-header md-hue-2" style="background:#4527a0">
+      <a ng-href="/" class="docs-logo" >
+        <img src="/static/img/logo.png" alt="" style="margin-left: auto;  margin-right: auto; padding: 10px;"  />
+      </a>
+    </header>
+
+    <md-toolbar class="md-hue-2">
+
       <div layout="column" class="md-toolbar-tools-bottom inset">
-        <user-avatar></user-avatar>
-        <span></span>
-        <div>Firstname Lastname</div>
-        <div>email@domainname.com</div>
+
+        <div>Dan Safee</div>
+        <div style="font-size:12px">dan@danwins.com</div>
       </div>
     </md-toolbar>
     <md-list>
@@ -57,7 +62,7 @@
           <ng-md-icon icon="menu"></ng-md-icon>
         </md-button>
         <h3>
-            Dashboard
+            Safee School Dashboard
           </h3>
         <span flex></span>
         <md-button aria-label="Search" ng-click="showSearch = !showSearch">
@@ -255,7 +260,7 @@
       $scope.showListBottomSheet = function($event) {
         $scope.alert = '';
         $mdBottomSheet.show({
-          template: '<md-bottom-sheet class="md-grid" layout="column" ng-cloak>  <div layout="row" layout-align="center center">    <h4>With clickOutsideToClose option, drag down or press ESC to close</h4>  </div>  <div>    <md-list flex layout="row" layout-align="center center">      <md-list-item ng-repeat="item in items">        <md-button class="md-grid-item-content" ng-click="listItemClick($index)">          <md-icon aria-label="Menu" class="material-icons">{{item.icon}}</md-icon>         <div class="md-grid-text"> {{ item.name }} </div>        </md-button>      </md-list-item>    </md-list>  </div></md-bottom-sheet>',
+          template: '<md-bottom-sheet class="md-grid" layout="column" style="position: fixed" ng-cloak>  <div layout="row" layout-align="center center">    <h4>With clickOutsideToClose option, drag down or press ESC to close</h4>  </div>  <div>    <md-list flex layout="row" layout-align="center center">      <md-list-item ng-repeat="item in items">        <md-button class="md-grid-item-content" ng-click="listItemClick($index)">          <md-icon aria-label="Menu" class="material-icons">{{item.icon}}</md-icon>         <div class="md-grid-text"> {{ item.name }} </div>        </md-button>      </md-list-item>    </md-list>  </div></md-bottom-sheet>',
           controller: 'ListBottomSheetCtrl',
           targetEvent: $event
         }).then(function(clickedItem) {
