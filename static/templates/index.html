@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
 <head>
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/css/style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -10,7 +10,7 @@
   <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ngCloak >
     <header class="nav-header md-hue-2" style="background:#4527a0" >
       <a ng-href="/" class="docs-logo" >
-        <img src="/static/img/logo.png" alt="" style="margin-left: 20%;  margin-right: 20%; margin-top:20px; margin-bottom:20px"  />
+        <img src="/static/img/coburra-logo-white-small.png" alt="" style="padding:10px"  />
       </a>
     </header>
 
@@ -22,7 +22,8 @@
         <div style="font-size:12px">dan@danwins.com</div>
       </div>
     </md-toolbar>
-    <md-list>
+
+
       <md-menu>
           <md-menu-content width="4">
             <md-menu-item ng-repeat="item in menu">
@@ -31,6 +32,8 @@
                 {{item.title}}
               </md-button>
             </md-menu-item>
+          </md-menu-content>
+          <md-menu-content>
           </md-menu-content>
         </md-menu>
       <md-divider></md-divider>
@@ -45,10 +48,12 @@
               </md-button>
             </md-menu-item>
           </md-menu-content>
+          <md-menu-content>
+          </md-menu-content>
         </md-menu>
-
-    </md-list>
   </md-sidenav>
+
+
   <div layout="column" class="relative" layout-fill role="main" ngCloak>
     <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
       <md-icon aria-label="Menu" class="material-icons">add</md-icon>
@@ -103,17 +108,24 @@
       </md-tab>
     </md-tabs>
 
-    <md-content flex md-scroll-y ngCloak>
-      <ui-view layout="column" layout-fill layout-padding>
+
+
+    <md-content ng-controller="AppToastCtrl" flex md-scroll-y ngCloak id="toastBounds">
+
+
+
+      <ui-view layout="column"  layout-padding>
         <div class="inset" hide-sm></div>
+
         <ng-switch on="data.selectedIndex" class="tabpanel-container">
           <div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0" md-swipe-left="next()" md-swipe-right="previous()" layout="row" layout-align="center center">
+
             <md-card flex-gt-sm="90" flex-gt-md="80">
+
               <md-card-content>
                 <h2>Activity</h2>
+
                 <md-list>
-
-
                   <md-list-item class="md-3-line" ng-repeat="item in activity | filter:search">
                     <div class="md-tile-left inset" hide-sm>
                       <user-avatar></user-avatar>
@@ -123,12 +135,16 @@
                       <h3>{{ item.who }}</h3>
                       <h4>{{ item.what }}</h4>
                       <p>{{ item.notes }}</p>
+
                     </div>
+                    <md-button ng-click="showCustomToast(item.who)">
+                      Show Custom
+                    </md-button>
                     <md-divider ng-if="!$last"></md-divider>
                   </md-list-item>
-                  <md-divider></md-divider>
+
                   <md-list-item>
-                    <md-button layout layout-align="center" flex class="md-primary">
+                    <md-button layout layout-align="center" flex class="md-primary" ng-click="showSimpleToast()">
                       <md-icon aria-label="Menu" class="material-icons">arrow forward</md-icon> More
                     </md-button>
                   </md-list-item>
@@ -156,7 +172,7 @@
 
                   <md-divider></md-divider>
                   <md-list-item>
-                    <md-button layout layout-align="start center" flex class="md-primary">
+                    <md-button layout layout-align="start center" flex class="md-primary" ng-click="showSimpleToast()">
                         <md-icon aria-label="Menu" class="material-icons">arrow forward</md-icon> More
                             </md-button>
                         </md-list-item>
@@ -184,7 +200,27 @@
     <script>
     var app = angular.module('StarterApp', ['ngMaterial', 'ngMdIcons']);
 
+    app.controller('AppToastCtrl', function($scope, $mdToast, $document) {
+
+      $scope.showCustomToast = function(itemWho) {
+        $mdToast.show({
+          controller: 'ToastCtrl',
+          template: '<md-toast style="position:fixed; margin:10px 0px">            <span flex> ' + itemWho +' </span>            <md-button ng-click="closeToast()">             Close            </md-button>          </md-toast>',
+          parent : $document[0].querySelector('#toastBounds'),
+          hideDelay: 2000,
+          position: 'top right'
+        });
+      };
+
+    })
+    app.controller('ToastCtrl', function($scope, $mdToast) {
+      $scope.closeToast = function() {
+        $mdToast.hide();
+      };
+    });
+
     app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog){
+
       $scope.toggleSidenav = function(menuId) {
         $mdSidenav(menuId).toggle();
       };
