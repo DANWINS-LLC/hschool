@@ -6,7 +6,10 @@ from logging.handlers import RotatingFileHandler
 app = Flask(__name__, template_folder="static/templates")
 
 @app.route("/")
-def hello():
+@app.route("/<filename>.txt")
+def hello(filename=None):
+    if filename:
+        return send_file('static/{}.txt'.format(filename))
     return send_file('static/templates/index.html')
 
 

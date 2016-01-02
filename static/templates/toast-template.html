@@ -1,6 +1,4 @@
-<md-toast>
-  <span flex>{{ itemWho }}</span>
-  <md-button ng-click="closeToast()">
-    Close
-  </md-button>
+<md-toast style="position:fixed; margin:10px 0px;" class="{{type}}">
+  <span flex>{{msg}} </span>
+  <md-button ng-click="closeToast()"> Close </md-button>
 </md-toast>

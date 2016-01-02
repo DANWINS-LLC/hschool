@@ -1,1 +1,16 @@
 
+md-toast.error div {
+    background-color: #ed1461;
+}
+
+md-toast.warning div {
+    background-color: #ff0bac;
+}
+
+md-toast.success div {
+    background-color: #27a038;
+}
+
+md-toast.info div {
+    background-color: #4527a0;
+}
