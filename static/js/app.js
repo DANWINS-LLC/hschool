@@ -1,7 +1,6 @@
 var app = angular.module('StarterApp', ['ngMaterial', 'ngMdIcons']);
 
 app.controller('AppToastCtrl', function($scope, $mdToast, $document) {
-
   $scope.showCustomToast = function(msg, type) {
     $mdToast.show({
       controller: 'ToastCtrl',
@@ -13,6 +12,7 @@ app.controller('AppToastCtrl', function($scope, $mdToast, $document) {
   };
 
 })
+
 app.controller('ToastCtrl', function($scope, $mdToast) {
   $scope.closeToast = function() {
     $mdToast.hide();
